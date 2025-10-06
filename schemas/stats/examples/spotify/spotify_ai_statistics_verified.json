@@ -502,10 +502,34 @@
     "verification_summary": {
       "total_statistics": 14,
       "verified_accurate": 5,
+      "verified_accurate_ids": [
+        "spotify_ai_playlist_listening_time",
+        "spotify_discover_weekly_retention",
+        "spotify_system_error_reduction",
+        "spotify_annual_net_profit",
+        "spotify_revenue_growth"
+      ],
       "verified_inaccurate": 3,
+      "verified_inaccurate_ids": [
+        "spotify_release_radar_discovery",
+        "spotify_ai_daily_listening_difference",
+        "spotify_artist_details_click_rate"
+      ],
+      "numerical_errors": 1,
+      "numerical_error_ids": [
+        "spotify_premium_subscription_growth"
+      ],
       "context_issues": 3,
+      "context_issue_ids": [
+        "spotify_discover_weekly_engagement",
+        "spotify_churn_reduction",
+        "spotify_learning_rate_achievement"
+      ],
       "source_mismatches": 2,
-      "not_found_in_source": 1,
+      "source_mismatch_ids": [
+        "spotify_training_accuracy",
+        "spotify_validation_accuracy"
+      ],
       "verification_rate": "100%",
       "accuracy_rate": "36%"
     }
