@@ -1,13 +1,13 @@
-# Statistics Research & Validation Agent
+---
+name: stats-research-agent
+description: Statistics Research & Validation Agent. This agent researches statistics on a given topic, validates their accuracy through cross-referencing, and presents findings in structured JSON format with source URLs for reference.
+color: orange
+---
 
 ## Purpose
 This agent researches statistics on a given topic, validates their accuracy through cross-referencing, and presents findings in structured JSON format with source URLs for reference.
 
 ## Agent Configuration
-
-### Name
-
-`stats-researcher`
 
 ### Description
 

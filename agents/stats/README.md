@@ -4,6 +4,239 @@ A comprehensive system of Claude Code agents for finding, validating, and verify
 
 ---
 
+## 📦 Detailed Installation Guide
+
+### Understanding Claude Code Agent Locations
+
+Claude Code looks for agent definitions in:
+- `~/claude/agents/` - User agents (recommended)
+- Project-specific `.claude/agents/` - Project-scoped agents
+- System agents (Claude Code built-ins)
+
+### Step-by-Step: File System Installation
+
+#### Step 1: Create Directory Structure
+
+```bash
+# Create agents directory
+mkdir -p ~/claude/agents
+
+# Create resources directory for checklist
+mkdir -p ~/claude/resources
+
+# Optional: Create project-specific location
+mkdir -p ~/your-project/.claude/agents
+```
+
+#### Step 2: Download or Copy Agent Files
+
+**Option A: Download from repository**
+```bash
+cd ~/claude/agents
+
+# Download orchestrator
+curl -O https://your-repo/Statistics_Research_Orchestrator_Agent.md
+mv Statistics_Research_Orchestrator_Agent.md stats_orchestrator.md
+
+# Optional: Download individual agents
+curl -O https://your-repo/Statistics_Research_Validation_Agent.md
+mv Statistics_Research_Validation_Agent.md stats_researcher.md
+
+curl -O https://your-repo/Statistics_Verification_Agent.md
+mv Statistics_Verification_Agent.md stats_verifier.md
+```
+
+**Option B: Manual file creation**
+```bash
+# Create the orchestrator agent
+cat > ~/claude/agents/stats_orchestrator.md << 'EOF'
+# Statistics Research Orchestrator Agent
+
+## Purpose
+[Paste the full content from Statistics_Research_Orchestrator_Agent.md]
+EOF
+```
+
+**Option C: Copy from local files**
+```bash
+# If you have the files locally
+cp Statistics_Research_Orchestrator_Agent.md ~/claude/agents/stats_orchestrator.md
+cp Statistics_Research_Validation_Agent.md ~/claude/agents/stats_researcher.md
+cp Statistics_Verification_Agent.md ~/claude/agents/stats_verifier.md
+```
+
+#### Step 3: Install Verification Checklist
+
+```bash
+# Save to shared resources
+cp Statistics_Verification_Checklist.md ~/claude/resources/verification_checklist.md
+
+# Or save to your project
+cp Statistics_Verification_Checklist.md ~/your-project/docs/verification_checklist.md
+```
+
+#### Step 4: Verify Installation
+
+```bash
+# List installed agents
+ls -la ~/claude/agents/
+
+# Should show:
+# stats_orchestrator.md
+# stats_researcher.md (optional)
+# stats_verifier.md (optional)
+
+# Restart Claude Code (if needed)
+# Then test:
+/agent stats_orchestrator --help
+```
+
+### File Naming Conventions
+
+**Important:** File names determine agent invocation:
+
+| File Name | Invocation Command | Notes |
+|-----------|-------------------|-------|
+| `stats_orchestrator.md` | `/agent stats_orchestrator` | Recommended |
+| `stats-orchestrator.md` | `/agent stats-orchestrator` | Also works |
+| `statsOrchestrator.md` | `/agent statsOrchestrator` | camelCase works |
+
+**We recommend:** `snake_case` format (`stats_orchestrator.md`)
+
+### Project-Specific Installation
+
+For project-scoped agents (only available in that project):
+
+```bash
+cd ~/your-project
+
+# Create project agents directory
+mkdir -p .claude/agents
+
+# Copy agent files
+cp ~/downloads/Statistics_Research_Orchestrator_Agent.md \
+   .claude/agents/stats_orchestrator.md
+
+# Add to .gitignore if you don't want to commit
+echo ".claude/agents/" >> .gitignore
+
+# Or commit if you want team access
+git add .claude/agents/
+git commit -m "Add statistics research agents"
+```
+
+### Verification Checklist Integration
+
+The checklist should be a **standalone reference document**, not embedded in agents. Here's why:
+
+**❌ Don't embed in agent:**
+- Makes agent file too large
+- Harder to maintain
+- Checklist is for humans, not agents
+- Can't print or share easily
+
+**✅ Do keep separate:**
+- Easy to update independently
+- Can be printed for reference
+- Shareable with team members
+- Can be customized per project
+
+**Recommended locations:**
+
+```bash
+# Global (for all projects)
+~/claude/resources/verification_checklist.md
+
+# Project-specific
+~/your-project/docs/verification_checklist.md
+~/your-project/.claude/resources/verification_checklist.md
+
+# Team shared (in repository)
+~/your-project/docs/statistics_verification_process.md
+```
+
+**Reference from agent (optional):**
+
+If you want the agent to mention the checklist location, add this to the agent file:
+
+```markdown
+## Human Verification
+
+For detailed manual verification steps, see the verification checklist at:
+- Global: `~/claude/resources/verification_checklist.md`
+- Project: `.claude/resources/verification_checklist.md`
+
+Open this file in your editor for step-by-step verification guidance.
+```
+
+### Directory Structure Example
+
+```
+~/claude/
+├── agents/
+│   ├── stats_orchestrator.md          # Main orchestrator agent
+│   ├── stats_researcher.md             # Research agent (optional)
+│   └── stats_verifier.md               # Verification agent (optional)
+└── resources/
+    └── verification_checklist.md       # Human verification guide
+
+~/your-project/
+├── .claude/
+│   ├── agents/                         # Project-specific agents (optional)
+│   └── resources/
+│       └── verification_checklist.md   # Project-specific checklist
+├── research_output.json                # Generated by agents
+├── verified_output.json                # Generated by agents
+└── docs/
+    └── statistics_sources.md           # Your research documentation
+```
+
+### Updating Agents
+
+When new versions are released:
+
+```bash
+# Backup current version
+cp ~/claude/agents/stats_orchestrator.md \
+   ~/claude/agents/stats_orchestrator.md.backup
+
+# Download new version
+curl -o ~/claude/agents/stats_orchestrator.md \
+  https://your-repo/Statistics_Research_Orchestrator_Agent.md
+
+# Restart Claude Code
+# Test the updated agent
+/agent stats_orchestrator "test query"
+```
+
+### Troubleshooting Installation
+
+**Agent not found:**
+```bash
+# Check if file exists
+ls -la ~/claude/agents/stats_orchestrator.md
+
+# Check permissions
+chmod 644 ~/claude/agents/stats_orchestrator.md
+
+# Restart Claude Code
+```
+
+**Agent file format issues:**
+- Ensure file is plain text Markdown (`.md` extension)
+- Check for proper UTF-8 encoding
+- Verify no binary characters
+
+**Path issues on Windows:**
+- Use: `%USERPROFILE%\claude\agents\stats_orchestrator.md`
+- Or: `C:\Users\YourName\claude\agents\stats_orchestrator.md`
+
+**Path issues on macOS/Linux:**
+- Use: `~/claude/agents/stats_orchestrator.md`
+- Ensure `~` expands to your home directory
+
+---
+
 ## 🎯 Quick Overview
 
 This system provides **three ways to get verified statistics**:
@@ -42,27 +275,118 @@ This system provides **three ways to get verified statistics**:
 
 ### Installation
 
-**Recommended: Install Orchestrator Only**
+**Method 1: Automated Installation (Easiest)**
+
 ```bash
-/agent create stats-orchestrator
-# Paste content from Statistics_Research_Orchestrator_Agent.md
+# Download and run the installation script
+curl -O https://your-repo/setup.sh
+chmod +x setup.sh
+./setup.sh
 ```
 
-That's it! The orchestrator coordinates the other agents automatically.
+The script will:
+- Create `~/claude/agents/` and `~/claude/resources/` directories
+- Install the orchestrator agent
+- Install the verification checklist
+- Optionally install individual agents
+- Backup any existing files
+
+---
+
+**Method 2: Manual File System Installation**
+
+1. **Create the agents directory** (if it doesn't exist):
+```bash
+mkdir -p ~/claude/agents
+```
+
+2. **Download and save the agent files**:
+
+# Save the orchestrator agent
+
+```bash
+curl -o ~/claude/agents/stats_orchestrator.md https://raw.githubusercontent.com/grokify/stratosforce/refs/heads/main/agents/stats/stats_orchestrator_agent.md
+
+# Or manually save the files to:
+
+```
+# ~/claude/agents/stats_orchestrator_agent.md
+# ~/claude/agents/stats_researcher_agent.md
+# ~/claude/agents/stats_verifier_agent.md
+```
+
+3. **Save the verification checklist**:
+
+# Save to a shared location
+
+```bash
+mkdir -p ~/claude/resources
+curl -o ~/claude/resources/verification_checklist.md 'https://raw.githubusercontent.com/grokify/stratosforce/refs/heads/main/agents/stats/stats_verification_checklist.md'
+```
+
+# Or save to your project directory
+
+```
+cp stats_verification_checklist.md ~/your-project/
+```
+
+4. **Restart Claude Code** (if needed) and the agents will be automatically available.
+
+**That's it!** The agents are now available via `/agent stats_orchestrator`.
+
+---
+
+**Method 3: Interactive Installation**
+
+If you prefer to use Claude Code's interactive agent creation:
+
+```bash
+/agent create stats-orchestrator
+# Paste content from Statistics_Research_Orchestrator_Agent.md when prompted
+```
 
 <details>
 <summary><strong>Optional: Install Individual Agents</strong></summary>
 
+**File System Method:**
+```bash
+# Save individual agent files
+cp Statistics_Research_Validation_Agent.md ~/claude/agents/stats_researcher.md
+cp Statistics_Verification_Agent.md ~/claude/agents/stats_verifier.md
+```
+
+**Interactive Method:**
 ```bash
 # Research agent
 /agent create stats-researcher
-# Paste from Statistics_Research_Validation_Agent.md
+# Paste from stats_research_agent.md
 
 # Verification agent  
 /agent create stats-verifier
-# Paste from Statistics_Verification_Agent.md
+# Paste from stats_verification_agent.md
 ```
 </details>
+
+---
+
+### Verification Checklist Setup
+
+The verification checklist can be used in two ways:
+
+**Option 1: Standalone File (Recommended)**
+- Best for: Human reviewers, printing, sharing with team
+- Location: `~/claude/resources/verification_checklist.md` or your project folder
+- Usage: Open in your editor or Markdown viewer when needed
+
+**Option 2: Reference in Agent (Advanced)**
+- Best for: Agent can reference it during verification
+- The agent Markdown files can include a path reference:
+```markdown
+For detailed verification guidance, see:
+file://~/claude/resources/verification_checklist.md
+```
+
+**We recommend Option 1** - Keep the checklist as a standalone reference document that humans use after the automated verification process.
 
 ### First Query
 
@@ -85,16 +409,16 @@ That's it! The orchestrator coordinates the other agents automatically.
 │  • Coordinates workflow                 │
 │  • Quality assessment                   │
 │  • Smart presentation                   │
-└──────────────v─┬────────────────────────┘
-                 │
-        ┌────────┴───────────┐
-        ↓                    ↓
+└──────────────┬──────────────────────────┘
+               │
+      ┌────────┴────────┐
+      ↓                 ↓
 ┌─────────────────┐ ┌──────────────────┐
 │stats-researcher │→│ stats-verifier   │
 │ • Web search    │ │ • Fetch sources  │
 │ • Extract stats │ │ • Verify accuracy│
 │ • Cross-validate│ │ • Flag issues    │
-└─────────────────┘ └──────────────────┘
+└─────────────v───┘ └──────────────────┘
       │                 │
       └────────┬────────┘
                ↓
@@ -117,7 +441,6 @@ That's it! The orchestrator coordinates the other agents automatically.
 ### Example 1: Academic Research
 
 **Query:**
-
 ```bash
 /agent stats-orchestrator \
   "Find statistics on climate change economic impact: GDP loss, \

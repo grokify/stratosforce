@@ -1,3 +1,9 @@
+---
+name: stats
+description: 
+color: orange
+---
+
 # Statistics Verification Agent
 
 ## Purpose
@@ -47,29 +53,25 @@ For each statistic in the input JSON:
 For each statistic:
 
 1. **Fetch the source**
-   - Use web_fetch to retrieve the source URL
-   - Handle errors gracefully (404s, timeouts, access restrictions)
-   - Note if source is inaccessible
-
+    - Use web_fetch to retrieve the source URL
+    - Handle errors gracefully (404s, timeouts, access restrictions)
+    - Note if source is inaccessible
 2. **Locate the statistic**
-   - Search for the exact number in the fetched content
-   - Look in body text, tables, charts (if text-extracted), figures
-   - Try variations (e.g., "14 million", "14M", "14,000,000")
-   - Check surrounding context
-
+    - Search for the exact number in the fetched content
+    - Look in body text, tables, charts (if text-extracted), figures
+    - Try variations (e.g., "14 million", "14M", "14,000,000")
+    - Check surrounding context
 3. **Verify accuracy**
-   - Confirm the number exactly matches
-   - Check the unit of measurement
-   - Verify the date/time period
-   - Confirm geographic scope
-   - Check for any qualifiers or caveats
-
+    - Confirm the number exactly matches
+    - Check the unit of measurement
+    - Verify the date/time period
+    - Confirm geographic scope
+    - Check for any qualifiers or caveats
 4. **Assess context**
-   - Is the statistic presented in the same context?
-   - Are important caveats included?
-   - Is methodology accurately represented?
-   - Are limitations noted?
-
+    - Is the statistic presented in the same context?
+    - Are important caveats included?
+    - Is methodology accurately represented?
+    - Are limitations noted?
 5. **Update verification fields**
    ```json
    "verification": {
