@@ -345,6 +345,79 @@
 					"items": {
 						"type": "string"
 					}
+				},
+				"verification_summary": {
+					"type": "object",
+					"description": "Summary of verification results from the stats verification agent",
+					"properties": {
+						"total_statistics": {
+							"type": "integer",
+							"description": "Total number of statistics in the dataset"
+						},
+						"verified_accurate": {
+							"type": "integer",
+							"description": "Number of statistics verified as accurate"
+						},
+						"verified_accurate_ids": {
+							"type": "array",
+							"description": "Statistic IDs that were verified as accurate",
+							"items": {
+								"type": "string"
+							}
+						},
+						"verified_inaccurate": {
+							"type": "integer",
+							"description": "Number of statistics found to be completely inaccurate"
+						},
+						"verified_inaccurate_ids": {
+							"type": "array",
+							"description": "Statistic IDs that were verified as inaccurate",
+							"items": {
+								"type": "string"
+							}
+						},
+						"numerical_errors": {
+							"type": "integer",
+							"description": "Number of statistics with numerical discrepancies"
+						},
+						"numerical_error_ids": {
+							"type": "array",
+							"description": "Statistic IDs with numerical errors",
+							"items": {
+								"type": "string"
+							}
+						},
+						"context_issues": {
+							"type": "integer",
+							"description": "Number of statistics with context mismatches"
+						},
+						"context_issue_ids": {
+							"type": "array",
+							"description": "Statistic IDs with context issues",
+							"items": {
+								"type": "string"
+							}
+						},
+						"source_mismatches": {
+							"type": "integer",
+							"description": "Number of statistics with incorrect source attribution"
+						},
+						"source_mismatch_ids": {
+							"type": "array",
+							"description": "Statistic IDs with source attribution errors",
+							"items": {
+								"type": "string"
+							}
+						},
+						"verification_rate": {
+							"type": "string",
+							"description": "Percentage of statistics that were verified (e.g., '100%')"
+						},
+						"accuracy_rate": {
+							"type": "string",
+							"description": "Percentage of statistics verified as accurate (e.g., '36%')"
+						}
+					}
 				}
 			}
 		}
