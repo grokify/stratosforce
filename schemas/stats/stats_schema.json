@@ -1,0 +1,352 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Statistics Research Report",
+	"type": "object",
+	"required": [
+		"topic",
+		"query_date",
+		"summary",
+		"statistics",
+		"sources"
+	],
+	"properties": {
+		"topic": {
+			"type": "string",
+			"description": "The topic researched"
+		},
+		"query_date": {
+			"type": "string",
+			"format": "date",
+			"description": "Date the research was conducted (YYYY-MM-DD)"
+		},
+		"summary": {
+			"type": "object",
+			"required": [
+				"overview",
+				"key_findings"
+			],
+			"properties": {
+				"overview": {
+					"type": "string",
+					"description": "2-3 sentence overview of the research"
+				},
+				"key_findings": {
+					"type": "array",
+					"description": "List of the most important statistics found",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"statistics": {
+			"type": "array",
+			"description": "Array of statistics found and validated",
+			"items": {
+				"type": "object",
+				"required": [
+					"id",
+					"name",
+					"value",
+					"unit",
+					"source_id",
+					"date",
+					"validation"
+				],
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "Unique identifier for this statistic"
+					},
+					"name": {
+						"type": "string",
+						"description": "Descriptive name of the statistic"
+					},
+					"value": {
+						"type": [
+							"number",
+							"string"
+						],
+						"description": "The statistical value (number or string for ranges/complex values)"
+					},
+					"unit": {
+						"type": "string",
+						"description": "Unit of measurement (e.g., 'million', 'percent', 'USD')"
+					},
+					"source_id": {
+						"type": "string",
+						"description": "Reference to the source ID in the sources array"
+					},
+					"date": {
+						"type": "string",
+						"description": "Date or time period the statistic refers to"
+					},
+					"geography": {
+						"type": "string",
+						"description": "Geographic scope (e.g., 'Global', 'United States', 'Europe')"
+					},
+					"validation": {
+						"type": "object",
+						"required": [
+							"status",
+							"confidence_level",
+							"cross_references"
+						],
+						"properties": {
+							"status": {
+								"type": "string",
+								"enum": [
+									"confirmed",
+									"single_source",
+									"conflicting",
+									"unverified"
+								],
+								"description": "Validation status of the statistic"
+							},
+							"confidence_level": {
+								"type": "string",
+								"enum": [
+									"high",
+									"medium",
+									"low"
+								],
+								"description": "Confidence level in the accuracy"
+							},
+							"cross_references": {
+								"type": "array",
+								"description": "Other source IDs that confirm this statistic",
+								"items": {
+									"type": "string"
+								}
+							},
+							"notes": {
+								"type": "string",
+								"description": "Additional validation notes or discrepancies"
+							}
+						}
+					},
+					"context": {
+						"type": "object",
+						"properties": {
+							"methodology": {
+								"type": "string",
+								"description": "How the data was collected or calculated"
+							},
+							"sample_size": {
+								"type": [
+									"number",
+									"string"
+								],
+								"description": "Sample size if applicable"
+							},
+							"margin_of_error": {
+								"type": "string",
+								"description": "Margin of error if provided"
+							},
+							"notes": {
+								"type": "string",
+								"description": "Additional context or caveats"
+							},
+							"case_study_specific": {
+								"type": "boolean",
+								"description": "Whether this statistic is specific to a single case study (may have limited generalizability)"
+							},
+							"generalizability": {
+								"type": "string",
+								"enum": [
+									"high",
+									"medium",
+									"low",
+									"not_applicable"
+								],
+								"description": "How generalizable this finding is beyond the specific case"
+							}
+						}
+					}
+				}
+			}
+		},
+		"sources": {
+			"type": "array",
+			"description": "Array of sources consulted",
+			"items": {
+				"type": "object",
+				"required": [
+					"id",
+					"name",
+					"url",
+					"type"
+				],
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "Unique identifier for this source"
+					},
+					"name": {
+						"type": "string",
+						"description": "Name of the organization or publication"
+					},
+					"url": {
+						"type": "string",
+						"format": "uri",
+						"description": "Full URL to the source"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"government",
+							"academic",
+							"international_org",
+							"industry",
+							"news",
+							"case_study",
+							"research_report",
+							"other"
+						],
+						"description": "Type of source"
+					},
+					"publication_date": {
+						"type": "string",
+						"description": "When the source was published"
+					},
+					"description": {
+						"type": "string",
+						"description": "Brief description of the source"
+					},
+					"credibility_rating": {
+						"type": "string",
+						"enum": [
+							"high",
+							"medium",
+							"low"
+						],
+						"description": "Assessed credibility of the source"
+					},
+					"case_study_details": {
+						"type": "object",
+						"description": "Additional details if source is a case study",
+						"properties": {
+							"organization": {
+								"type": "string",
+								"description": "Organization or company featured in the case study"
+							},
+							"industry": {
+								"type": "string",
+								"description": "Industry sector of the case study"
+							},
+							"time_period": {
+								"type": "string",
+								"description": "Time period the case study covers"
+							},
+							"author": {
+								"type": "string",
+								"description": "Author or research organization that conducted the case study"
+							},
+							"study_type": {
+								"type": "string",
+								"enum": [
+									"longitudinal",
+									"cross_sectional",
+									"comparative",
+									"single_case",
+									"multiple_case",
+									"other"
+								],
+								"description": "Type of case study methodology"
+							},
+							"peer_reviewed": {
+								"type": "boolean",
+								"description": "Whether the case study was peer-reviewed"
+							}
+						}
+					}
+				}
+			}
+		},
+		"discrepancies": {
+			"type": "array",
+			"description": "Array of conflicting data found",
+			"items": {
+				"type": "object",
+				"required": [
+					"statistic_name",
+					"conflicting_values",
+					"explanation"
+				],
+				"properties": {
+					"statistic_name": {
+						"type": "string",
+						"description": "Name of the statistic with conflicting data"
+					},
+					"conflicting_values": {
+						"type": "array",
+						"description": "Array of different values found",
+						"items": {
+							"type": "object",
+							"properties": {
+								"value": {
+									"type": [
+										"number",
+										"string"
+									]
+								},
+								"source_id": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"explanation": {
+						"type": "string",
+						"description": "Possible reasons for the discrepancy"
+					}
+				}
+			}
+		},
+		"limitations": {
+			"type": "array",
+			"description": "Data limitations and considerations",
+			"items": {
+				"type": "string"
+			}
+		},
+		"metadata": {
+			"type": "object",
+			"properties": {
+				"research_mode": {
+					"type": "string",
+					"enum": [
+						"single-source",
+						"expansion",
+						"multi-source"
+					],
+					"description": "The research mode used"
+				},
+				"primary_url": {
+					"type": "string",
+					"format": "uri",
+					"description": "The primary URL provided (if any)"
+				},
+				"sources_consulted": {
+					"type": "integer",
+					"description": "Total number of sources reviewed"
+				},
+				"statistics_found": {
+					"type": "integer",
+					"description": "Total number of statistics identified"
+				},
+				"statistics_validated": {
+					"type": "integer",
+					"description": "Number of statistics validated by multiple sources"
+				},
+				"search_queries_used": {
+					"type": "array",
+					"description": "List of search queries performed",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		}
+	}
+}
